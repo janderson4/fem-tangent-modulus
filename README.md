@@ -1,0 +1,1 @@
+The purpose of this repo is to test a parallel implementation of the computation of the algorithmic tangent operator as a step in the finite element method. The parallel computation will be performed in CUDA. 
