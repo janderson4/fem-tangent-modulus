@@ -46,16 +46,16 @@ function [f_int, A, SIG, ALPHA, R]=F_INT(SIG,u_diff,Ce,ALPHA,R,mu,H,beta,nodes,e
         for IP = 1:4
             IP_global=(e-1)*4+IP; % the global integration point number
             [xi, eta]=gauss(IP);
-            [B, detJ] = shape_functions_Q4(xi, eta, coords);
+            [B, detJ] = shape_functions_Q4(xi, eta, coords, nu);
 
-            % construct the complete strain vector (6 x 1)
+            % the complete strain vector (6 x 1)
             EPSI_el=B*u_el;
-            EPSI_el_tot=[EPSI_el(1:2); -nu*sum(EPSI_el(1:2)); EPSI_el(3);0;0];
 
             [SIG(:,IP_global), ALPHA(:,IP_global), R(:,IP_global), C_alg] =...
-                sigma(SIG0(:,IP_global),Ce,EPSI_el_tot,ALPHA0(:,IP_global),R0(:,IP_global),mu,H,beta);
-            Ae = Ae + B' * C_alg([1 2 4],[1 2 4]) * B * detJ * t;
-            f_inte = f_inte + B' * SIG([1 2 4],IP_global) * detJ * t;
+                sigma(SIG0(:,IP_global),Ce,EPSI_el,ALPHA0(:,IP_global),R0(:,IP_global),mu,H,beta);
+
+            Ae = Ae + B' * C_alg * B * detJ * t;
+            f_inte = f_inte + B' * SIG(:,IP_global) * detJ * t;
         end
         
         % Assembly into global

@@ -27,7 +27,9 @@ function [SIG, ALPHA, R, C_alg] = sigma(SIG,Ce,EPSI,ALPHA,R,mu,H,beta)
     s_tr=sig_tr-p*ID;
     XI=s_tr-ALPHA;
     
-    a=sqrt(sum(XI(1:3).^2)+2*sum(XI(4:6).^2));
+    % since the shear strain is engineering, it must be halved to get the
+    % tensorial shear strain before squaring
+    a=sqrt(sum(XI(1:3).^2)+2*sum((XI(4:6)./2).^2));
     
     % CHECK IF ELASTIC
     if (a <= R)
