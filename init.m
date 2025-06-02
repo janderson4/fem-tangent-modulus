@@ -22,8 +22,9 @@ ALPHA=zeros(6,n_int);
 bulk=E/(3*(1-2*nu));
 mu=E/(2*(1+nu));
 
-Ce=mu*eye(6);
-Ce(1:3,1:3)=Ce(1:3,1:3)+(bulk-2/3*mu)*ones(3)+mu*eye(3);
+% elastic tangent tensor assuming tensorial shear strain
+Ce=2*mu*eye(6);
+Ce(1:3,1:3)=Ce(1:3,1:3)+(bulk-2/3*mu).*ones(3);
 
 % INITIALIZE R
 

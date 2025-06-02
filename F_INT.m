@@ -48,7 +48,8 @@ function [f_int, A, SIG, ALPHA, R]=F_INT(SIG,u_diff,Ce,ALPHA,R,mu,H,beta,nodes,e
             [xi, eta]=gauss(IP);
             [B, detJ] = shape_functions_Q4(xi, eta, coords, nu);
 
-            % the complete strain vector (6 x 1)
+            % the complete strain vector (6 x 1) (with engineering shear
+            % strain)
             EPSI_el=B*u_el;
 
             [SIG(:,IP_global), ALPHA(:,IP_global), R(:,IP_global), C_alg] =...

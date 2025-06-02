@@ -34,7 +34,7 @@ function [u, SIG, ALPHA, R] = newton(SIG,u,Ce,ALPHA,R,mu,H,beta,f_ext,nodes,elem
     u_diff=zeros(size(u,1),1);
 
     ct=0;
-    limit=100;
+    limit=200;
     while norm(res(free_dofs)) > tol && ct < limit
         ct = ct + 1;
         if (ct==limit)
@@ -48,5 +48,6 @@ function [u, SIG, ALPHA, R] = newton(SIG,u,Ce,ALPHA,R,mu,H,beta,f_ext,nodes,elem
         [f_int, A, SIG, ALPHA, R] = F_INT(SIG0, u_diff, Ce, ALPHA0, R0, mu, H, beta, nodes, elements, t, nu);
         res = f_ext - f_int;
     end
+    fprintf("Newton converged in %d iterations.\n", ct);
     u=u+u_diff;
 end

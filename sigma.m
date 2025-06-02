@@ -15,6 +15,9 @@ function [SIG, ALPHA, R, C_alg] = sigma(SIG,Ce,EPSI,ALPHA,R,mu,H,beta)
     %   ALPHA: back stress at this point after this step (6 x nIP)
     %   R: radius at this point after this step (1 x nIP)
 
+    % convert to tensorial shear strain
+    EPSI(4:6)=EPSI(4:6)./2;
+
     % identity
     ID=[1;1;1;0;0;0];
     
@@ -29,7 +32,7 @@ function [SIG, ALPHA, R, C_alg] = sigma(SIG,Ce,EPSI,ALPHA,R,mu,H,beta)
     
     % since the shear strain is engineering, it must be halved to get the
     % tensorial shear strain before squaring
-    a=sqrt(sum(XI(1:3).^2)+2*sum((XI(4:6)./2).^2));
+    a=sqrt(sum(XI(1:3).^2)+2*sum((XI(4:6)).^2));
     
     % CHECK IF ELASTIC
     if (a <= R)
@@ -54,5 +57,6 @@ function [SIG, ALPHA, R, C_alg] = sigma(SIG,Ce,EPSI,ALPHA,R,mu,H,beta)
     
     Ia=eye(6);
     Ia(4:6,4:6)=Ia(4:6,4:6)-0.5*eye(3);
+
     C_alg=Cep-2*mu*psi*(Ia-1/3*ID*ID'-nhat*nhat');
 end
