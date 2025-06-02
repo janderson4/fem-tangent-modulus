@@ -10,7 +10,7 @@ The finite element program was implemented with these parameters:
 - Number of elements in x direction=20
 - Number of elements in y direction=20
 - E=Young's modulus=200e3 MPa
-- $E_T$=Hardening modulus MPa
+- $E_T$=Hardening modulus=20e3 MPa
 - $\nu$=Poisson's ratio=0.3
 - Thickness=0.01 m
 - $\sigma_{y0}$=Initial yield stress=300 MPa
